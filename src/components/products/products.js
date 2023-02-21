@@ -6,7 +6,7 @@ export const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [topPriced, setTopPriced] = useState(false)
     const [filteredProducts, setFiltered] = useState([])
-    
+    const navigate = useNavigate()
 
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
@@ -21,6 +21,8 @@ export const ProductList = () => {
         },
         []
     )
+
+
     
     useEffect(
         () => {
@@ -54,6 +56,7 @@ export const ProductList = () => {
                         <h2>Products</h2>
                         <button className="filterButtons" onClick={() => setTopPriced(true) }>Top Priced</button>
                         <button className="filterButtons" onClick={() => setTopPriced(false) }>All products</button>
+                        <button className="filterButtons" onClick={() => navigate("/products/newProduct")}>Create New Product</button>
                         <article className="products">
                             {
                                 alphabeticalProducts.map(
@@ -74,3 +77,4 @@ export const ProductList = () => {
     )
 
 }
+
