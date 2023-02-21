@@ -21,7 +21,7 @@ export const NewProductForm = () => {
         event.preventDefault()
         const productToSendToAPI = {
             name: ticket.name,
-            productTypeId: document.getElementById('buttongroup').value,
+            productTypeId: ticket.productTypeId,
             price: ticket.price * 100
         }
         return fetch("http://localhost:8088/products", {
