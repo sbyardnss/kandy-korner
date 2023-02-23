@@ -1,25 +1,18 @@
-import { NavBar } from "../nav/NavBar.js"
-import { Outlet, Route, Routes } from "react-router-dom"
-import { LocationList } from "../locations/locations.js"
-import { ProductList } from "../products/products.js"
-import { NewProductForm } from "../NewProduct/newProductForm.js"
+
+import { EmployeeViews } from "./EmployeeViews.js"
+import { CustomerViews } from "./CustomerViews.js"
 
 
 export const ApplicationViews = () => {
-	return (
-		<Routes>
-			<Route path="/" element={
-				<>
-					<h1>Kandy Korner</h1>
-					<div>Get your candy here</div>
-					<Outlet />
-				</>
-			}>
-				<Route path="locations" element={ <LocationList /> } />
-				<Route path="products" element={ <ProductList /> } />
-				<Route path="products/newProduct" element={ <NewProductForm /> } /> 
-			</Route>
-		</Routes>
-	)
+	const localKandyUser = localStorage.getItem("kandy_user")
+    const kandyUserObject = JSON.parse(localKandyUser)
+
+	if (kandyUserObject.staff) {
+		return <EmployeeViews />
+	}
+	else {
+		return <CustomerViews />
+	}
+
 }
 

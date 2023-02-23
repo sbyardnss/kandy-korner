@@ -13,3 +13,9 @@
 .filterButtons {
     margin: .5rem;
 }
+
+#searchArea {
+    width: 300px;
+    padding: 0 10px;
+    margin: 10px 0;
+}
