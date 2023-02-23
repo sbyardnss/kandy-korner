@@ -15,7 +15,7 @@ export const SearchResults = ({searchTermsState}) => {
         () => {
             let searchedTerms = products.filter(
                 (product) => {
-                    return product.name.toLowerCase().includes(searchTermsState.toLowerCase())
+                    return product.name.toLowerCase().includes(searchTermsState?.toLowerCase())
                 }
             )
             setFiltered(searchedTerms)
