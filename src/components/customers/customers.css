@@ -1,0 +1,27 @@
+.customers {
+    display: flex;
+    flex-direction: column;
+}
+
+.customer {
+    background-color: rgb(243, 230, 255);
+    border: 1px dotted darkmagenta;
+    padding: 0.7rem;
+    margin: .5rem;
+}
+
+.customer__header {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.filterButtons {
+    margin: .5rem;
+}
+
+.form-group {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
