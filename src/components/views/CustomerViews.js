@@ -5,6 +5,7 @@ import { ProductList } from "../products/products.js"
 import { ProductSearch } from "../products/ProductSearch.js"
 import { SearchContainer } from "../products/SearchContainer.js"
 import { SearchResults, SearchView } from "../products/SearchResults.js"
+import { Purchases } from "../purchases/purchases.js"
 
 
 export const CustomerViews = () => {
@@ -20,6 +21,8 @@ export const CustomerViews = () => {
 				<Route path="locations" element={ <LocationList /> } />
 				<Route path="products" element={ <ProductList /> } />
                 <Route path="products/search" element={ <SearchContainer /> } />
+				<Route path="purchases" element={ <Purchases /> } />
+
 
 			</Route>
 		</Routes>

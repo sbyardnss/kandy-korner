@@ -6,16 +6,14 @@ export const ProductList = () => {
     const [products, setProducts] = useState([]);
     const [topPriced, setTopPriced] = useState(false)
     const [filteredProducts, setFiltered] = useState([])
+    const [customers, setCustomers] = useState([])
+    const [customer, setCustomer] = useState({})
     const navigate = useNavigate()
 
     const localKandyUser = localStorage.getItem("kandy_user")
     const kandyUserObject = JSON.parse(localKandyUser)
 
-    useEffect(
-        () => {
-            
-        }
-    )
+    
     useEffect(
         () => {
             fetch(`http://localhost:8088/products?_expand=productType`)
@@ -26,7 +24,16 @@ export const ProductList = () => {
         },
         []
     )
-
+    useEffect(
+        () => {
+            fetch(`http://localhost:8088/customers`)
+                .then(response => response.json())
+                .then((customerArray) => {
+                    setCustomers(customerArray)
+                })
+        },
+        []
+    )
 
 
     useEffect(
@@ -35,6 +42,13 @@ export const ProductList = () => {
             setFiltered(products)
         },
         [products]
+    )
+    useEffect(
+        () => {
+            const loggedInCustomer = customers.find(customer => customer.userId === kandyUserObject.id)
+            setCustomer(loggedInCustomer)
+        },
+        [customers]
     )
     useEffect(
         () => {
@@ -49,6 +63,22 @@ export const ProductList = () => {
         [topPriced]
     )
 
+    const purchaseProduct = (id) => {
+        const purchaseToSendToAPI = {
+            customerId: parseInt(customer?.id),
+            productId: parseInt(id),
+            quantity: 1
+        }
+        fetch(`http://localhost:8088/purchases`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(purchaseToSendToAPI)
+        })
+            .then(res => res.json())
+
+    }
 
     const alphabeticalProducts = filteredProducts.sort((a, b) => a.name < b.name ? -1 : a.name > b.name ? 1 : 0)
     return (
@@ -81,9 +111,15 @@ export const ProductList = () => {
                             {
                                 alphabeticalProducts.map(
                                     (product) => {
-                                        return <section className="product">
+                                        return <section key={product.id} className="product">
                                             <header>{product.name} - {product?.productType.type}</header>
-                                            <footer>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'usd' }).format((product.price) / 100)}</footer>
+                                            <footer className="productFooter">{Intl.NumberFormat('en-US', { style: 'currency', currency: 'usd' }).format((product.price) / 100)}
+                                                <button className="purchaseButton" onClick={
+                                                    () => {
+                                                        purchaseProduct(product?.id)
+
+                                                    }
+                                                }>Purchase</button></footer>
                                         </section>
                                     }
                                 )
