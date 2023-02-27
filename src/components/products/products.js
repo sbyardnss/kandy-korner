@@ -96,7 +96,7 @@ export const ProductList = () => {
                             {
                                 alphabeticalProducts.map(
                                     (product) => {
-                                        return <section className="product">
+                                        return <section key={product.id} className="product">
                                             <header>{product.name} - {product?.productType.type}</header>
                                             <footer>{Intl.NumberFormat('en-US', { style: 'currency', currency: 'usd' }).format((product.price) / 100)}</footer>
                                         </section>

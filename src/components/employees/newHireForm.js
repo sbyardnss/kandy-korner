@@ -169,7 +169,7 @@ export const NewHireForm = () => {
                         <option value="0">select location</option>
                         {
                             locations.map(l => {
-                                return <option value={l.id} >{l.address}</option>
+                                return <option key={l.id} value={l.id} >{l.address}</option>
                             })
                         }
                     </select>
